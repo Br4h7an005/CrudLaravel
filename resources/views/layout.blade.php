@@ -12,6 +12,7 @@
         <body>
         <a href="{{ url('/')}}" class="btn btn-primary mt-4">Inicio</a>  
         <a href="{{ url('categorias')}}" class="btn btn-primary mt-4">Categorias</a> 
+        <a href="{{ url('usuarios')}}" class="btn btn-primary mt-4">Usuarios</a> 
         @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
