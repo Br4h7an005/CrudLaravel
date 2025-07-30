@@ -9,8 +9,14 @@
 <body>
    <div class="container">
       <h1 class="text-center mt-4">Inicio de Sesión</h1>
-      @csrf
+      @if(session('type'))
+         <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
+            <strong>Aviso</strong> {{ session('message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+      @endif
       <form action="check" method="POST">
+         @csrf
          <div class="row">
             <div class="col-md-4">
                <label for="email">Email</label>

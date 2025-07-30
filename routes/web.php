@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsuarioController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('login');
@@ -10,7 +11,13 @@ Route::get('/', function () {
 
 Route::get('login', function () {
     return view('login');
+})->name('login');
+
+Route::get('logout', function()  {
+    Auth::logout();
+    return redirect('login');
 });
+
 
 // Ruta para gestionar la validación de usuarios
 Route::post('check', [UsuarioController::class, 'check']);

@@ -16,8 +16,8 @@ class UsuarioController extends Controller
         if (Auth::attempt($request->only('email', 'password'))){
             return redirect()->intended('home');
         }
-        return redirect('login')->with('type', 'info')
-                                    ->with('messagen', 'Correo o contraseña incorrecta');
+        return redirect('login')->with('type', 'danger')
+                                    ->with('message', 'Correo o contraseña incorrecta');
     }
     //
     public function index()
