@@ -27,9 +27,9 @@
     <div class="row mt-4">
         <div class="col-md-4">
             <label><strong>Seleccione el rol del usuario:</strong></label><br>
-            <label class="me-2"><input type="radio" name="rol" value="1" {{ old('rol') == '1' ? 'checked' : '' }}> Administrador</label>
-            <label><input type="radio" name="rol" value="2" {{ old('rol') == '2' ? 'checked' : '' }}> Cliente</label>
-            @error('rol')
+            <label class="me-2" for="rAdministrador"><input type="radio" class="form-check-input" id="rAdministrador" name="id_rol" value="1" {{ old('rol') == '1' ? 'checked' : '' }}> Administrador</label>
+            <label for="rCliente"><input type="radio" id="rCliente" name="id_rol" class="form-check-input" value="2" {{ old('rol') == '2' ? 'checked' : '' }}> Cliente</label>
+            @error('id_rol')
                 <div class="error compacto col-lg-5">{{ $message }}</div>
             @enderror
         </div>
@@ -76,7 +76,7 @@
                 required: true,
                 digits: true
             },
-            rol: {
+            id_rol: {
                 required: true
             },
             email: {

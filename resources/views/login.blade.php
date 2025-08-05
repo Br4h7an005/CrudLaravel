@@ -16,20 +16,22 @@
          </div>
       @endif
       <form action="check" method="POST">
-         @csrf
-         <div class="row">
-            <div class="col-md-4">
-               <label for="email">Email</label>
-               <input class="form-control" type="text" name="email" id="email" placeholder="Ingrese su Email">
+         <fieldset>
+            @csrf
+            <div class="row">
+               <div class="col-md-4">
+                  <label for="email">Email</label>
+                  <input class="form-control" type="text" name="email" id="email" placeholder="Ingrese su Email">
+               </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-md-4">
-               <label for="password">Contraseña</label>
-               <input class="form-control" type="password" name="password" id="password" placeholder="Ingrese su contraseña">
+            <div class="row">
+               <div class="col-md-4">
+                  <label for="password">Contraseña</label>
+                  <input class="form-control" type="password" name="password" id="password" placeholder="Ingrese su contraseña">
+               </div>
             </div>
-         </div>
-         <button class="btn btn-primary mt-4">Iniciar Sesión</button>
+            <button class="btn btn-primary mt-4">Iniciar Sesión</button>
+         </fieldset>
       </form>
    </div>
 

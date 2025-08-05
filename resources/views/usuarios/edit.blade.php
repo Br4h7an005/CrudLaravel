@@ -1,8 +1,8 @@
 @extends('layout')
-@section('title','Registro Usuario')
+@section('title','Editar Usuario')
 @section('content')
 
-<h3 class="mt-4 mb-3">Registro Usuario</h3>
+<h3 class="mt-4 mb-3">Editar Usuario</h3>
 
 <form id="form" action="{{ route('usuarios.update',$datos->id) }}" method="POST">
     @csrf
@@ -28,9 +28,9 @@
     <div class="row mt-4">
         <div class="col-md-4">
             <label><strong>Seleccione el rol del usuario:</strong></label><br>
-            <label class="me-2"><input type="radio" name="rol" value="1" {{ old('rol', $datos->rol) == '1' ? 'checked' : '' }}> Administrador</label>
-            <label><input type="radio" name="rol" value="2" {{ old('rol', $datos->rol) == '2' ? 'checked' : '' }}> Cliente</label>
-            @error('rol')
+            <label class="me-2"><input type="radio" name="id_rol" value="1" {{ old('rol', $datos->rol) == '1' ? 'checked' : '' }}> Administrador</label>
+            <label><input type="radio" name="id_rol" value="2" {{ old('rol', $datos->rol) == '2' ? 'checked' : '' }}> Cliente</label>
+            @error('id_rol')
                 <div class="error compacto col-lg-5">{{ $message }}</div>
             @enderror
         </div>
@@ -77,7 +77,7 @@
                 required: true,
                 digits: true
             },
-            rol: {
+            id_rol: {
                 required: true
             },
             email: {

@@ -36,7 +36,7 @@ class UsuarioController extends Controller
         $validated = Validator::make($request->all(),[
             'nombre' => 'required | max:50',
             'telefono' => 'required | max:20',
-            'rol' => 'required',
+            'id_rol' => 'required',
             'email' => 'required | max:120',
             'password' => 'required | max:180'
         ]);
@@ -66,7 +66,7 @@ class UsuarioController extends Controller
         $validated = Validator::make($request->all(),[
             'nombre' => 'required | max:50',
             'telefono' => 'required | max:20',
-            'rol' => 'required',
+            'id_rol' => 'required',
             'email' => 'required | max:120',
             'password' => 'required | max:180'
         ]);
@@ -76,7 +76,9 @@ class UsuarioController extends Controller
             return back()->withErrors($validated)
                          ->withInput();
         } else {
-            $usuario->update($request->all());
+            $datos = $request->all();
+            $datos['password'] = Hash::make($datos['password']);
+            $usuario->update($datos);
             return redirect('usuarios')->with('type', 'success')
                                            ->with('message', 'Registro actualizado Correctamente');
         }   

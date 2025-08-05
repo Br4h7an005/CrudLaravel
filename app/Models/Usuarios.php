@@ -15,8 +15,13 @@ class Usuarios extends Authenticatable
     public $fillable = [
         'nombre',
         'telefono',
-        'rol',
+        'id_rol',
         'email',
         'password'
     ];
+
+    // Relación uno a uno entre Usuario y Roles
+    public function rol() {
+        return $this->belongsTo('App\Models\Roles', 'id_rol');
+    }
 }

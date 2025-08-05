@@ -30,7 +30,7 @@
         <tr>
             <td>{{ $usuario->nombre }}</td>
             <td>{{ $usuario->telefono }}</td>
-            <td>{{ ucfirst($usuario->rol == 1 ? "Administrador" : "Cliente") }}</td>
+            <td>{{ $usuario->rol->nombre }}</td>
             <td>{{ $usuario->email }}</td>
             <td>
                 <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-outline-primary btn-sm">Editar</a>

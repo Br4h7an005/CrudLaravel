@@ -10,11 +10,16 @@
 </head>
 <div class="container">
         <body>
-        <a href="{{ url('home')}}" class="btn btn-primary mt-4">Inicio</a>  
-        <a href="{{ url('categorias')}}" class="btn btn-primary mt-4">Categorias</a> 
-        <a href="{{ url('usuarios')}}" class="btn btn-primary mt-4">Usuarios</a>
-        <a href="{{ url('logout')}}" class="btn btn-danger mt-4">Salir</a>
-        @yield('content')
+            <a href="{{ url('home')}}" class="btn btn-primary mt-4">Inicio</a>  
+            @if (Auth::user())
+                @if (Auth::user()->rol->nombre == "Administrador")
+                    <a href="{{ url('roles')}}" class="btn btn-primary mt-4">Roles</a> 
+                    <a href="{{ url('categorias')}}" class="btn btn-primary mt-4">Categorias</a> 
+                @endif
+                <a href="{{ url('usuarios')}}" class="btn btn-primary mt-4">Usuarios</a>
+                <a href="{{ url('logout')}}" class="btn btn-danger mt-4">Salir</a>
+            @endif
+            @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     @yield('js')
