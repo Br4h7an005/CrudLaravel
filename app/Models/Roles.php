@@ -16,8 +16,10 @@ class Roles extends Model
     public function usuarios(){
         return $this->hasMany('App\Models\Usuarios');
     }
-
+    
+    
+    // Crear relación entre los roles y los permisos
     public function permisos() {
-        return $this->hasMany('App\Models\Permisos');
+        return $this->hasMany('App\Models\Permisos', 'rol_id');
     }
 }

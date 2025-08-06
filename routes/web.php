@@ -39,4 +39,7 @@ Route::middleware(["auth"])->group(function (){
         Route::resource('/categorias', CategoriaController::class);
         Route::resource('/roles', RolesController::class);        
     });
+
+    // Protejer la ruta de producto (en construcción) para que solo el cliente pueda acceder a el
+    // Lógica...
 });
