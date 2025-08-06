@@ -1,46 +1,93 @@
 @extends('layout')
-@section('title','Registro Categoria')
+@section('title','Registro Categoría')
+
+@section('css')
+<style>
+  body {
+    background-color: #f0f4f8;
+  }
+</style>
+@endsection
+
 @section('content')
-<h3 class="mt-4 mb-3">Registrar Categoria</h3>
-    <form  id="form" action="{{url('categorias')}}" method="POST">
+<div class="container mt-5">
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">Registrar Categoría</h3>
+      <form id="form" action="{{ url('categorias') }}" method="POST" novalidate>
         @csrf
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre" value="{{ old('nombre') }}">
-                @error('nombre')
-                    <div class="error compacto col-lg-5">{{ $message }}</div>
-                @enderror
-            </div>
-         <div class="row mt-4">
-            <div class="col-md-4">
-                <input type="text" name="descripcion" class="form-control" placeholder="Ingrese la descripción" value="{{ old('descripcion') }}">
-                @error('descripcion')
-                    <div class="error compacto col-lg-5">{{ $message }}</div>
-                @enderror
-            </div>
+        
+        <div class="mb-3">
+          <label for="nombre" class="form-label fw-semibold">Nombre</label>
+          <input 
+            type="text" 
+            class="form-control @error('nombre') is-invalid @enderror" 
+            id="nombre" 
+            name="nombre" 
+            placeholder="Ingrese el nombre" 
+            value="{{ old('nombre') }}"
+            required
+            maxlength="50"
+          >
+          @error('nombre')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
-        <div class="col-md-4 mt-4"> 
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{{ url('categorias')}}" class="btn btn-secondary">Cancelar</a>
+
+        <div class="mb-3">
+          <label for="descripcion" class="form-label fw-semibold">Descripción</label>
+          <input 
+            type="text" 
+            class="form-control @error('descripcion') is-invalid @enderror" 
+            id="descripcion" 
+            name="descripcion" 
+            placeholder="Ingrese la descripción" 
+            value="{{ old('descripcion') }}"
+            required
+            maxlength="200"
+          >
+          @error('descripcion')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
-    </form>
-@stop()
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <button type="submit" class="btn btn-success px-4 fw-semibold">Guardar</button>
+          <a href="{{ url('categorias') }}" class="btn btn-secondary px-4 fw-semibold">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@stop
+
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="{{ url('js/jquery.validate.min.js') }}"></script> 
-    <script src="{{ url('js/localization/messages_es.min.js') }}"></script>
-    <script>
-        $("#form").validate({ 
-            rules:{
-                nombre:{
-                    required: true,
-                    maxlength: 50
-                },
-                descripcion:{
-                    required: true,
-                    maxlength: 200
-                }
-            }
-         })
-    </script>
-@stop()
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="{{ url('js/jquery.validate.min.js') }}"></script>
+<script src="{{ url('js/localization/messages_es.min.js') }}"></script>
+<script>
+  $("#form").validate({
+    rules: {
+      nombre: {
+        required: true,
+        maxlength: 50
+      },
+      descripcion: {
+        required: true,
+        maxlength: 200
+      }
+    },
+    errorClass: "invalid-feedback",
+    errorElement: "div",
+    highlight: function(element) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function(element) {
+      $(element).removeClass('is-invalid');
+    },
+    errorPlacement: function(error, element) {
+      error.insertAfter(element);
+    }
+  });
+</script>
+@stop

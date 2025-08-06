@@ -1,35 +1,53 @@
 @extends('layout')
-@section('title','Registro rol')
+@section('title','Registrar Rol')
+
+@section('css')
+<style>
+    body {
+        background-color: #e9f2fb;
+    }
+</style>
+@endsection
+
 @section('content')
-<h3 class="mt-4 mb-3">Registrar rol</h3>
-    <form  id="form" action="{{ url('roles')}}" method="POST">
-        @csrf
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre" value="{{ old('nombre') }}">
-                @error('nombre')
-                    <div class="error compacto col-lg-5">{{ $message }}</div>
-                @enderror
-            </div>
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h3 class="mb-4">Registrar Rol</h3>
+
+            <form id="form" action="{{ url('roles') }}" method="POST" novalidate>
+                @csrf
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre del rol</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Ingrese el nombre" value="{{ old('nombre') }}">
+                    @error('nombre')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="{{ url('roles') }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
         </div>
-        <div class="col-md-4 mt-4"> 
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <a href="{{ url('roles')}}" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </form>
-@stop()
+    </div>
+</div>
+@stop
+
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="{{ url('js/jquery.validate.min.js') }}"></script> 
-    <script src="{{ url('js/localization/messages_es.min.js') }}"></script>
-    <script>
-        $("#form").validate({ 
-            rules:{
-                nombre:{
-                    required: true,
-                    maxlength: 60
-                }
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="{{ url('js/jquery.validate.min.js') }}"></script> 
+<script src="{{ url('js/localization/messages_es.min.js') }}"></script>
+<script>
+    $("#form").validate({ 
+        rules: {
+            nombre: {
+                required: true,
+                maxlength: 60
             }
-         })
-    </script>
-@stop()
+        }
+    });
+</script>
+@stop

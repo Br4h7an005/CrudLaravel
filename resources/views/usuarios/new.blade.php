@@ -1,65 +1,87 @@
 @extends('layout')
 @section('title','Registro Usuario')
+
+@section('css')
+<style>
+    body {
+        background-color: #e9f2fb;
+    }
+</style>
+@endsection
+
 @section('content')
 
-<h3 class="mt-4 mb-3">Registro Usuario</h3>
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h3 class="mb-4">Registro de Usuario</h3>
 
-<form id="form" action="{{ url('usuarios') }}" method="POST">
-    @csrf
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <input type="text" name="nombre" class="form-control" placeholder="Ingrese nombre" value="{{ old('nombre') }}">
-            @error('nombre')
-                <div class="error compacto col-lg-5">{{ $message }}</div>
-            @enderror
+            <form id="form" action="{{ url('usuarios') }}" method="POST" novalidate>
+                @csrf
+
+                {{-- Nombre --}}
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Ingrese nombre" value="{{ old('nombre') }}">
+                    @error('nombre')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Teléfono --}}
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" name="telefono" id="telefono" class="form-control @error('telefono') is-invalid @enderror" placeholder="Ingrese teléfono" value="{{ old('telefono') }}">
+                    @error('telefono')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Rol --}}
+                <div class="mb-3">
+                    <label class="form-label">Seleccione el rol del usuario</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="id_rol" id="rAdministrador" value="1" {{ old('id_rol') == '1' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="rAdministrador">Administrador</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="id_rol" id="rCliente" value="2" {{ old('id_rol') == '2' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="rCliente">Cliente</label>
+                    </div>
+                    @error('id_rol')
+                        <div class="text-danger mt-1 small">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Email --}}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Ingrese correo" value="{{ old('email') }}">
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Password --}}
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Ingrese clave">
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Botones --}}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="{{ url('usuarios') }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <input type="text" name="telefono" class="form-control" placeholder="Ingrese teléfono" value="{{ old('telefono') }}">
-            @error('telefono')
-                <div class="error compacto col-lg-5">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <label><strong>Seleccione el rol del usuario:</strong></label><br>
-            <label class="me-2" for="rAdministrador"><input type="radio" class="form-check-input" id="rAdministrador" name="id_rol" value="1" {{ old('rol') == '1' ? 'checked' : '' }}> Administrador</label>
-            <label for="rCliente"><input type="radio" id="rCliente" name="id_rol" class="form-check-input" value="2" {{ old('rol') == '2' ? 'checked' : '' }}> Cliente</label>
-            @error('id_rol')
-                <div class="error compacto col-lg-5">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <input type="email" name="email" class="form-control" placeholder="Ingrese correo" value="{{ old('email') }}">
-            @error('correo')
-                <div class="error compacto col-lg-5">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <input type="password" name="password" class="form-control" placeholder="Ingrese clave">
-            @error('clave')
-                <div class="error compacto col-lg-5">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="col-md-4 mt-4">
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{{ url('usuarios') }}" class="btn btn-secondary">Cancelar</a>
-    </div>
-</form>
-
-@stop()
+@stop
 
 @section('js')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -90,4 +112,4 @@
         }
     });
 </script>
-@stop()
+@stop
