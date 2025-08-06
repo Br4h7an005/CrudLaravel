@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Roles;
+use App\Models\Permisos;
+use App\Models\Acciones;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -23,7 +25,8 @@ class RolesController extends Controller
      */
     public function create()
     {
-        return view('roles.new');
+        $acciones = Acciones::pluck('id', 'nombre');
+        return view('roles.new', compact('acciones'));
     }
 
     /**
@@ -40,7 +43,16 @@ class RolesController extends Controller
                          ->withInput();
         } else {
             $datos = $request->all();
-            Roles::create($datos);
+            $accion_id = $request->get("accion", []);
+            $registroRol = Roles::create($datos);
+
+        foreach ($accion_id as $id) {
+            $datos = [
+                'rol_id' => $registroRol->id, // <- nombre correcto del campo + forma correcta
+                'accion_id' => $id
+            ];
+            Permisos::create($datos);
+            }
             return redirect('roles')->with('type', 'success')
                                     ->with('message', 'Registro creado correctamente');
         }

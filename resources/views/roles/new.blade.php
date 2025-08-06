@@ -26,10 +26,29 @@
                     @enderror
                 </div>
 
+                @if(Auth::user()->id_rol === 1)
+                <div class="mt-4">
+                    <label class="form-label d-block mb-2">Permisos</label>
+                    <div class="row">
+                        @foreach ($acciones as $nombre => $id)
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="accion[]" value="{{ $id }}" id="accion_{{ $id }}">
+                                    <label class="form-check-label" for="accion_{{ $id }}">
+                                        {{ $nombre }}
+                                    </label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
                 <div class="mt-4">
                     <button type="submit" class="btn btn-success">Guardar</button>
                     <a href="{{ url('roles') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
+                
             </form>
         </div>
     </div>
