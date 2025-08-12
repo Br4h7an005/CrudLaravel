@@ -17,7 +17,7 @@ class RolAdmin
     public function handle(Request $request, Closure $next): Response
     {   
         // Configuración Middleware 
-        if (Auth::user()->rol->nombre == 'Administrador'){
+        if (Auth::user()->rol->nombre == 'Administrador'){ // Condicionar los roles
             return $next($request);
         }
         return redirect()->back();

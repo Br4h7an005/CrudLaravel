@@ -42,19 +42,21 @@ class RolesController extends Controller
             return back()->withErrors($validated)
                          ->withInput();
         } else {
-            $datos = $request->all();
-            $accion_id = $request->get("accion", []);
-            $registroRol = Roles::create($datos);
+            $datos = $request->all(); // Datos recibidos del Front
+            $accion_id = $request->get("accion", []); // Id's de las acciones recibidos del Front
+            $registroRol = Roles::create($datos); // Variable que guarda los datos y los sube a la tabla Roles de la BD 
 
+        // Ciclo que recorre las acciones dadas por el usuario     
         foreach ($accion_id as $id) {
             $datos = [
-                'rol_id' => $registroRol->id, // <- nombre correcto del campo + forma correcta
-                'accion_id' => $id
+                'rol_id' => $registroRol->id, // Id del rol recien creado
+                'accion_id' => $id // Id de la acción
             ];
-            Permisos::create($datos);
-            }
-            return redirect('roles')->with('type', 'success')
-                                    ->with('message', 'Registro creado correctamente');
+            Permisos::create($datos); // Crear el registro en la tabla Permisos de la BD
+        }
+        // Redirijir hacia la pestaña index de roles
+        return redirect('roles')->with('type', 'success')
+                                ->with('message', 'Registro creado correctamente');
         }
     }
 

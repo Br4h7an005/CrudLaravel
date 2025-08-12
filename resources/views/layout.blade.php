@@ -12,16 +12,26 @@
     <title>@yield('title')</title>
 </head>
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('home') }}">Inicio</a>
+        <div class="container d-flex align-items-center justify-content-between">
+            
+            <!-- Rol del usuario -->
+            <div class="d-flex align-items-center me-4">
+                <span class="badge bg-primary text-white px-3 py-2 fs-6">
+                    <i class="bi bi-person-badge-fill me-1"></i> {{ Auth::user()->rol->nombre }}
+                </span>
+            </div>
 
+            <!-- Enlace a inicio centrado -->
+            <a class="navbar-brand mx-auto fw-bold" href="{{ url('home') }}">Inicio</a>
+
+            <!-- Botón para dispositivos pequeños -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-  
+
+            <!-- Contenido colapsable -->
             <div class="collapse navbar-collapse" id="navbarContent">
                 @if (Auth::user())
                     <ul class="navbar-nav ms-auto">
@@ -44,6 +54,7 @@
             </div>
         </div>
     </nav>
+
 
     <div class="container mt-4">
         @yield('content')
