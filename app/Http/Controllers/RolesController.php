@@ -25,7 +25,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        $acciones = Acciones::pluck('id', 'nombre');
+        $acciones = Acciones::all();
         return view('roles.new', compact('acciones'));
     }
 
@@ -48,11 +48,11 @@ class RolesController extends Controller
 
         // Ciclo que recorre las acciones dadas por el usuario     
         foreach ($accion_id as $id) {
-            $datos = [
+            $permiso = [
                 'rol_id' => $registroRol->id, // Id del rol recien creado
                 'accion_id' => $id // Id de la acción
             ];
-            Permisos::create($datos); // Crear el registro en la tabla Permisos de la BD
+            Permisos::create($permiso); // Crear el registro en la tabla Permisos de la BD
         }
         // Redirijir hacia la pestaña index de roles
         return redirect('roles')->with('type', 'success')
