@@ -45,7 +45,9 @@
                                     @foreach($items as $item)
                                         <div class="form-check mb-2">
                                             <input type="checkbox" id="accion_{{ $item->id }}" name="accion_id[]" class="form-check-input" value="{{ $item->id }}">
-                                            <label for="accion_{{ $item->id }}" class="form-check-label" style="cursor: pointer;">{{ $item->nombre }}</label>
+                                            <label for="accion_{{ $item->id }}" class="form-check-label" style="cursor: pointer;">
+                                                {{ $item->nombre }}
+                                            </label>
                                         </div>
                                     @endforeach
                                 </div>

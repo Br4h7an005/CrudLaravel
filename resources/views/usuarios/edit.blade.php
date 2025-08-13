@@ -41,14 +41,12 @@
                 {{-- Rol --}}
                 <div class="mb-3">
                     <label class="form-label">Seleccione el rol del usuario</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="id_rol" id="rAdministrador" value="1" {{ old('id_rol', $datos->id_rol) == '1' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="rAdministrador">Administrador</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="id_rol" id="rCliente" value="2" {{ old('id_rol', $datos->id_rol) == '2' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="rCliente">Cliente</label>
-                    </div>
+                     @foreach($roles as $rol)
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="id_rol" id="r{{ $rol->nombre }}" value="{{ $rol->id }}" {{ old('id_rol', $datos->id_rol) == $rol->id ? 'checked' : '' }}>
+                            <label class="form-check-label" for="r{{ $rol->nombre }}">{{ $rol->nombre }}</label>
+                        </div>
+                    @endforeach
                     @error('id_rol')
                         <div class="text-danger mt-1 small">{{ $message }}</div>
                     @enderror

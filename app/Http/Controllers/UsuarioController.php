@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuarios;
+use App\Models\Roles;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,8 @@ class UsuarioController extends Controller
 
     public function create()
     {
-        return view('usuarios.new');
+        $roles = Roles::all();
+        return view('usuarios.new', compact('roles'));
     }
 
     public function store(Request $request)
@@ -67,7 +69,8 @@ class UsuarioController extends Controller
     public function edit(string $id)
     {
         $datos = Usuarios::find($id);
-        return view('usuarios.edit', compact('datos'));
+        $roles = Roles::all();
+        return view('usuarios.edit', compact('datos', 'roles'));
     }
 
     public function update(Request $request, Usuarios $usuario)

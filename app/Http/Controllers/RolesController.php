@@ -73,8 +73,20 @@ class RolesController extends Controller
      */
     public function edit(string $id)
     {
-        $datos = Roles::find($id);
-        return view('roles.edit', compact('datos'));
+        // $datos = Roles::find($id);
+        // return view('roles.edit', compact('datos'));
+
+        $rol = Roles::findOrFail($id); // Capturar el id del rol a editar
+        $permisos = Permisos::where('rol_id', $id)->get('accion_id');
+        $permisosAsignados = []; // Inicializar la variable 
+        foreach($permisos as $permiso) {
+            $permisosAsignados[] = $permiso['accion_id'];
+        }
+
+        // Capturar las acciones en una variable
+        $acciones = Acciones::all();
+        // Retornar hacia la vista edit con las variables rol, permisosAsignados, acciones
+        return view('roles.edit', compact('rol', 'permisosAsignados', 'acciones'));
     }
 
     /**
@@ -90,8 +102,19 @@ class RolesController extends Controller
             return back()->withErrors($validated)
                          ->withInput();
         } else {
-            $datos = $request->all();
-            Roles::create($datos);
+            // $datos = $request->all();
+            // Roles::create($datos);
+
+            $rol = Roles::findOrFail($id); // Crear variable que guarde el registro con la variable dado como argumento
+            $rol->update($request->all()); // Actualizar los registro del rol
+            Permisos::where('rol_id', $id)->delete(); // Eliminar el registro permisos que sea tenga el rol_id igual al id como argumento
+
+            $acciones = $request->all('accion_id'); // Obtener las acciones 
+            foreach($acciones['accion_id'] as $accion) {
+                $permiso['rol_id'] = $id;
+                $permiso['accion_id'] = $accion;
+                Permisos::create($permiso);
+            }
             return redirect('roles')->with('type', 'success')
                                     ->with('message', 'Registro actualizado correctamente');
         }
@@ -101,7 +124,8 @@ class RolesController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
+    {   
+        Permisos::where('rol_id', $id)->delete();
         Roles::destroy($id);
         return redirect('roles')->with('type', 'danger')
                                 ->with('message', 'Rol eliminado correctamente');
